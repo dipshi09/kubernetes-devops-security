@@ -16,7 +16,7 @@ spec:
         app: devsecops
     spec:
       containers:
-      - image: replace
+      - image: dipshi/java-app2:latest
         name: devsecops-container
 ---
 apiVersion: v1
