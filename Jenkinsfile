@@ -31,16 +31,17 @@ pipeline {
                            sh "docker push dipshi/java-app2:latest"
                   }	  
      
-	stage('kubernets Deploy') {
+		
+		  }
+		  
+		} 	
+	  stage('kubernets Deploy') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']){
                 sh 'kubectl apply -f k8s_deployment_service.yaml'
                 }
             }
             
-        }		
-		  }
-		  
-		} 		
+        }	
   }
 }
