@@ -28,8 +28,7 @@ pipeline {
 		steps {
                    withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'dockerloginPassword', usernameVariable: 'dockerloginUser')]) {
                            sh "docker login -u ${env.dockerloginUser} -p ${env.dockerloginPassword}"
-                           echo "username is $USERNAME"
-			   sh "docker push dipshi/java-app2:latest"
+                           sh "docker push dipshi/java-app2:latest"
                   }	  
      
 			
