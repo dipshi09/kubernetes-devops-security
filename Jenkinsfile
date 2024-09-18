@@ -24,9 +24,15 @@ pipeline {
 		  }
 		  
 		} 
-     stage('Docker Push') {
+	  stage('Docker Push') {
 		steps {
-			sh "docker push dipshi/java-app2:latest"
+                   withCredentials([usernamePassword(credentialsId: 'dockerlogin', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                           echo "username is $USERNAME"
+			   sh "docker login"
+			   sh "docker push dipshi/java-app2:latest"
+                  }	  
+     
+			
 		  }
 		  
 		} 		
