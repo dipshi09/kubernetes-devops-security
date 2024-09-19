@@ -18,6 +18,15 @@ pipeline {
         }
       }
     }
+stage('SonarQube -SAST') {
+      steps {
+        sh "mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=devsecops-numeric-application \
+  -Dsonar.host.url=http://devsecops.eastasia.cloudapp.azure.com:9000 \
+  -Dsonar.login=sqp_af535b45dbf3cd7488edb8434d743eb3060ed0dc
+    }
+      
+    }  
 	stage('Docker Build') {
 		steps {
 			sh "docker build -t dipshi/java-app2:latest ."
