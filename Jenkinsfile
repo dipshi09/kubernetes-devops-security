@@ -18,15 +18,20 @@ pipeline {
         }
       }
     }
-stage('SonarQube -SAST') {
+stage('SonarQube - SAST') {
       steps {
-        sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=devsecops-numeric-application \
-  -Dsonar.host.url=http://devsecops.eastasia.cloudapp.azure.com:9000 \
-  -Dsonar.login=sqp_9a61ca8d070026bcc187d81e346a458fa8cda38a"
+        withSonarQubeEnv('sonarqube') {
+          sh "mvn sonar:sonar \
+              -Dsonar.projectKey=devsecops-numeric-application \
+              -Dsonar.host.url=http://devsecops.eastasia.cloudapp.azure.com:9000"
+      }
+        timeout(time: 2, unit: 'MINUTES') {
+          script {
+            waitForQualityGate abortPipeline: true
+          }
+        }
+      }
     }
-      
-    }  
 	stage('Docker Build') {
 		steps {
 			sh "docker build -t dipshi/java-app2:latest ."
